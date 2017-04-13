@@ -4,6 +4,7 @@ const favicon = require('serve-favicon')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
+const hbs = require('hbs')
 const neo4j = require('neo4j-driver').v1
 
 const index = require('./routes/index')
@@ -12,6 +13,7 @@ const users = require('./routes/users')
 const app = express()
 
 // view engine setup
+hbs.registerPartials(path.join(__dirname, '/views/partials'))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
 
