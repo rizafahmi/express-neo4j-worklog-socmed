@@ -1,4 +1,9 @@
-{{> nav}}
+{% extends '_layout.html' %}
+
+{% include "_nav.html" %}
+{% include '_nav' %}
+
+{% block content %}
 <section class="section main">
   <div class="container">
     <div class="columns">
@@ -115,3 +120,4 @@
     </div>
   </div>
 </section>
+{% endblock %}

@@ -4,7 +4,7 @@ const favicon = require('serve-favicon')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-const hbs = require('hbs')
+const nunjucks = require('nunjucks')
 const neo4j = require('neo4j-driver').v1
 
 const index = require('./routes/index')
@@ -12,9 +12,13 @@ const index = require('./routes/index')
 const app = express()
 
 // view engine setup
-hbs.registerPartials(path.join(__dirname, '/views/partials'))
 app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'hbs')
+nunjucks.configure(app.get('views'), {
+  autoescape: true,
+  watch: true,
+  express: app
+})
+app.set('view engine', 'html')
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -68,6 +72,7 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
+  console.log(err)
   // render the error page
   res.status(err.status || 500)
   res.render('error')
