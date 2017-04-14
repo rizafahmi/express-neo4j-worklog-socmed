@@ -30,11 +30,13 @@ html
           span
         .nav-right.nav-menu
           span.nav-item
-            a.button
-              | Register
-            a.button
-              | Register
-            a.button.is-primary.is-outlined
-              | Login
+            if user
+              a.button.is-danger.is-outlined
+                | Logout
+            else
+              a.button
+                | Register
+              a.button.is-primary.is-outlined
+                | Login
 
     block content
