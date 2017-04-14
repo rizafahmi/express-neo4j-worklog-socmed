@@ -8,7 +8,6 @@ const hbs = require('hbs')
 const neo4j = require('neo4j-driver').v1
 
 const index = require('./routes/index')
-const users = require('./routes/users')
 
 const app = express()
 
@@ -55,7 +54,6 @@ session.run('CREATE CONSTRAINT ON (n:Tag) ASSERT n.name IS UNIQUE')
   })
 
 app.use('/', index)
-app.use('/users', users)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

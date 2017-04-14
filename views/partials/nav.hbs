@@ -3,7 +3,7 @@
     <div class="nav-center">
       <a class="nav-item" href="#">
         <span data-icon="ei-pencil" data-size="m"></span>
-        <h1 class="title is-primary" style="color: #1fc8db">Dev Log</h1>
+        <h1 class="title is-primary" style="color: #1fc8db">DevLog</h1>
       </a>
     </div>
 
@@ -15,12 +15,11 @@
 
     <div class="nav-right nav-menu">
       <span class="nav-item">
+      {{#if user }}
         <a class="button">
           Register
         </a>
-        <a class="button is-primary is-outlined">
-          Login
-        </a>
+      {{/end}}
       </span>
     </div>
   </div>
