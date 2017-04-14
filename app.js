@@ -4,7 +4,7 @@ const favicon = require('serve-favicon')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-const nunjucks = require('nunjucks')
+const pug = require('pug')
 const neo4j = require('neo4j-driver').v1
 
 const index = require('./routes/index')
@@ -13,12 +13,7 @@ const app = express()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
-nunjucks.configure(app.get('views'), {
-  autoescape: true,
-  watch: true,
-  express: app
-})
-app.set('view engine', 'html')
+app.set('view engine', 'pug')
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

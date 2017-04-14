@@ -1,0 +1,82 @@
+extends _layout.pug
+
+block content
+  section.section.main
+    .container
+      .columns
+        .column.is-3
+          .card.is-fullwidth
+            header.card-header
+            .card-content
+              a.card-avatar
+                img.card-avatar-img(src='https://pbs.twimg.com/profile_images/806748838950076416/eTlGRtGw_400x400.jpg')
+              .card-user
+                .card-user-name
+                  a(href='#') John Smith
+                span
+                  a(href='#')
+                    | @
+                    span jsmith
+              .card-stats
+                ul.card-stats-list
+                  li.card-stats-item
+                    a(href='#', title='9.840 Tweet')
+                      span.card-stats-key Tweets
+                      span.card-stats-val 1
+                  li.card-stats-item
+                    a(href='#/following', title='885 Following')
+                      span.card-stats-key Following
+                      span.card-stats-val 0
+                  li.card-stats-item
+                    a(href='#')
+                      span.card-stats-key Followers
+                      span.card-stats-val 0
+          .spacer
+        .column.is-6
+          .box
+            | TODO:FORM
+          .box
+            article.media
+              .media-left
+                figure.image.is-64x64
+                  img(src='http://placehold.it/128x128', alt='Image')
+              .media-content
+                .content
+                  p
+                    strong John Smith
+                    small @johnsmith
+                    small(style='float:right;') 31m
+                    br
+                    |                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+                nav.level
+                  .level-left
+                    a.level-item
+                      span.icon.is-medium(data-icon='ei-undo')
+                    a.level-item
+                      span.icon.is-medium(data-icon='ei-retweet')
+                    a.level-item
+                      span.icon.is-medium(data-icon='ei-heart')
+        .column.is-3
+          .box
+            p
+              span.title.is-5 Who to follow
+              |  · 
+              a(href='#') Refresh
+              |  · 
+              a(href='#') View All
+            hr
+            .columns
+              .column.is-3.is-marginless
+                .image
+                  img(src='https://placehold.it/200x200')
+              .column.is-9
+                p
+                  a(href='#')
+                    strong John Smith
+                    |                   &commat;jsmith
+                  a(href='#')
+                    i(data-icon='ei-close-o', data-size='s')
+                a.button.is-primary.is-small
+                  span
+                    | + Follow
+
