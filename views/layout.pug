@@ -11,12 +11,30 @@ html
     link(rel='mask-icon', href='http://bulma.io/favicons/safari-pinned-tab.svg?v=201701041855', color='#00d1b2')
     link(rel='shortcut icon', href='http://bulma.io/favicons/favicon.ico?v=201701041855')
     meta(name='msapplication-config', content='http://bulma.io/favicons/browserconfig.xml?v=201701041855')
-    title {{ title }}
+    title= title
     link(rel='stylesheet', type='text/css', href='/stylesheets/bulma.css')
     link(rel='stylesheet', href='https://cdn.jsdelivr.net/evil-icons/1.9.0/evil-icons.min.css')
     link(rel='stylesheet', type='text/css', href='/stylesheets/base.css')
     link(rel='stylesheet', type='text/css', href='/stylesheets/timeline.css')
     script(src='https://cdn.jsdelivr.net/evil-icons/1.9.0/evil-icons.min.js')
   body
-    block content
+    nav.nav.has-shadow
+      .container
+        .nav-center
+          a.nav-item(href='#')
+            span(data-icon='ei-pencil', data-size='m')
+            h1.title.is-primary(style='color: #1fc8db') DevLog
+        span.nav-toggle
+          span
+          span
+          span
+        .nav-right.nav-menu
+          span.nav-item
+            a.button
+              | Register
+            a.button
+              | Register
+            a.button.is-primary.is-outlined
+              | Login
 
+    block content
