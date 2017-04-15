@@ -7,33 +7,36 @@ block content
     .container
       include messages
       .columns
-        .column.is-3
-          .card.is-fullwidth
-            header.card-header
-            .card-content
-              a.card-avatar
-                img.card-avatar-img(src='https://pbs.twimg.com/profile_images/806748838950076416/eTlGRtGw_400x400.jpg')
-              .card-user
-                .card-user-name
-                  a(href='#') John Smith
-                span
-                  a(href='#')
-                    | @
-                    span jsmith
-              .card-stats
-                ul.card-stats-list
-                  li.card-stats-item
-                    a(href='#', title='9.840 Tweet')
-                      span.card-stats-key Tweets
-                      span.card-stats-val 1
-                  li.card-stats-item
-                    a(href='#/following', title='885 Following')
-                      span.card-stats-key Following
-                      span.card-stats-val 0
-                  li.card-stats-item
+        if session.username
+          .column.is-3
+            .card.is-fullwidth
+              header.card-header
+              .card-content
+                a.card-avatar
+                  img.card-avatar-img(src='https://pbs.twimg.com/profile_images/806748838950076416/eTlGRtGw_400x400.jpg')
+                .card-user
+                  .card-user-name
+                    a(href='#') John Smith
+                  span
                     a(href='#')
-                      span.card-stats-key Followers
-                      span.card-stats-val 0
+                      | @
+                      span= session.username
+                .card-stats
+                  ul.card-stats-list
+                    li.card-stats-item
+                      a(href='#', title='9.840 Tweet')
+                        span.card-stats-key Tweets
+                        span.card-stats-val 1
+                    li.card-stats-item
+                      a(href='#/following', title='885 Following')
+                        span.card-stats-key Following
+                        span.card-stats-val 0
+                    li.card-stats-item
+                      a(href='#')
+                        span.card-stats-key Followers
+                        span.card-stats-val 0
+        else
+          .column.is-2
           .spacer
         .column.is-6
           .box

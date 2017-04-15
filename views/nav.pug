@@ -10,7 +10,7 @@ nav.nav.has-shadow
       span
     .nav-right.nav-menu
       span.nav-item
-        if user
+        if session.username
           a.button.is-danger.is-outlined
             | Logout
         else

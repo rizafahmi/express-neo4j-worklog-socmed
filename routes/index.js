@@ -1,5 +1,4 @@
 const express = require('express')
-const bcrypt = require('bcryptjs')
 
 const models = require('../models')
 const router = express.Router()
@@ -61,6 +60,9 @@ router.post('/login', (req, res, next) => {
   models.loggingIn(username, password)
     .then(result => {
       if (result === true) {
+        const message = 'Successfully logged in.'
+        req.session.username = username
+        req.flash('info', message)
         res.redirect('/')
       } else {
         const message = `Invalid username or password.`

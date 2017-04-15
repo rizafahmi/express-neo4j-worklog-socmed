@@ -30,8 +30,14 @@ app.use(session({
   resave: false
 }))
 app.use(require('flash')())
+app.use((req, res, next) => {
+  res.locals.session = req.session
+  next()
+})
 
 app.use('/', index)
+
+require('express-debug')(app, {})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
