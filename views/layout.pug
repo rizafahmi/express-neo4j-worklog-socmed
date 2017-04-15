@@ -18,25 +18,4 @@ html
     link(rel='stylesheet', type='text/css', href='/stylesheets/timeline.css')
     script(src='https://cdn.jsdelivr.net/evil-icons/1.9.0/evil-icons.min.js')
   body
-    nav.nav.has-shadow
-      .container
-        .nav-center
-          a.nav-item(href='#')
-            span(data-icon='ei-pencil', data-size='m')
-            h1.title.is-primary(style='color: #1fc8db') DevLog
-        span.nav-toggle
-          span
-          span
-          span
-        .nav-right.nav-menu
-          span.nav-item
-            if user
-              a.button.is-danger.is-outlined
-                | Logout
-            else
-              a.button
-                | Register
-              a.button.is-primary.is-outlined
-                | Login
-
     block content
