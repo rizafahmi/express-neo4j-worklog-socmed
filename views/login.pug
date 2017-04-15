@@ -6,21 +6,22 @@ block content
       .container
         .columns.is-vcentered
           .column.is-4.is-offset-4
+            include messages
             h1.title
               | Login
-            .box
-              label.label Email
+            form.box(action='/login', method='POST')
+              label.label Username
               p.control
-                input.input(type='text', placeholder='jsmith@example.org')
+                input.input(type='text', placeholder='jsmith@example.org', required='required', name='username')
               label.label Password
               p.control
-                input.input(type='password', placeholder='●●●●●●●')
+                input.input(type='password', placeholder='●●●●●●●', required='required', name='password')
               hr
               p.control
                 button.button.is-primary Login
                 button.button.is-default Cancel
             p.has-text-centered
-              a(href='register.html') Register an Account
+              a(href='/register') Register an Account
               |               
               a(href='#') Forgot password
               |               

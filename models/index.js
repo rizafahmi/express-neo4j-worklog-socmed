@@ -36,7 +36,7 @@ session.run('CREATE CONSTRAINT ON (n:Tag) ASSERT n.name IS UNIQUE')
 async function findUser (username) {
   let user
   try {
-    user = await session.run(neoHelpers.findOne('Person', 'name', username))
+    user = await session.run(neoHelpers.findOne('User', 'username', username))
     session.close()
   } catch (err) {
     console.error(err)
@@ -51,7 +51,23 @@ const createUser = (username, password) => {
   return session.run(q)
 }
 
+const loggingIn = async (username, password) => {
+  return await findUser(username)
+    .then(result => {
+      if (result.records && result.records.length > 0) {
+        const userData = result.records[0]._fields[0].properties
+        return bcrypt.compareSync(password, userData.password)
+      } else {
+        return false
+      }
+    })
+    .catch(() => {
+      return false
+    })
+}
+
 module.exports = {
   findUser,
-  createUser
+  createUser,
+  loggingIn
 }

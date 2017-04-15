@@ -49,15 +49,30 @@ router.post('/register', (req, res, next) => {
     .catch(err => {
       const message = `Ooops, something happen! ${err}`
       req.flash('danger', message)
-      res.redirect('/register')
+      res.render('register')
     })
 })
 
 router.get('/login', (req, res, next) => {
   res.render('login')
 })
-router.post('/register', (req, res, next) => {
-  res.send('TODO')
+router.post('/login', (req, res, next) => {
+  const { username, password } = req.body
+  models.loggingIn(username, password)
+    .then(result => {
+      if (result === true) {
+        res.redirect('/')
+      } else {
+        const message = `Invalid username or password.`
+        req.flash('danger', message)
+        res.render('login')
+      }
+    })
+    .catch(error => {
+      const message = `Something went wrong. ${error}`
+      req.flash('danger', message)
+      res.render('login')
+    })
 })
 
 module.exports = router

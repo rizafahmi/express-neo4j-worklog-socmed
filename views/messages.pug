@@ -1,4 +1,4 @@
-for message in flash
+while message = flash.shift()
   .card.is-fullwidth(style='margin-bottom: 20px')
     article.message(class='is-' + message.type)
       .message-header
