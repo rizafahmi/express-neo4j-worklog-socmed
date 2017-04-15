@@ -1,0 +1,6 @@
+for message in flash
+  .card.is-fullwidth(style='margin-bottom: 20px')
+    article.message(class='is-' + message.type)
+      .message-header
+        p= message.type
+      .message-body= message.message

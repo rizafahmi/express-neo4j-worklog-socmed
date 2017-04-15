@@ -6,8 +6,10 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const pug = require('pug')
 const neo4j = require('neo4j-driver').v1
+const session = require('express-session')
 
 const index = require('./routes/index')
+const models = require('./models')
 
 const app = express()
 
@@ -22,35 +24,12 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
-
-const driver = neo4j.driver('bolt://localhost')
-const session = driver.session()
-
-// Constraint creator
-session.run('CREATE CONSTRAINT ON (n:User) ASSERT n.username IS UNIQUE')
-  .then((result) => {
-    console.log('Constraint for User created.')
-    session.close()
-  })
-  .catch(error => {
-    console.log(error)
-  })
-session.run('CREATE CONSTRAINT ON (n:Post) ASSERT n.id IS UNIQUE')
-  .then((result) => {
-    console.log('Constraint for Post created.')
-    session.close()
-  })
-  .catch(error => {
-    console.log(error)
-  })
-session.run('CREATE CONSTRAINT ON (n:Tag) ASSERT n.name IS UNIQUE')
-  .then((result) => {
-    console.log('Constraint for Tag created.')
-    session.close()
-  })
-  .catch(error => {
-    console.log(error)
-  })
+app.use(session({
+  secret: 'rizafahmi',
+  saveUninitialized: false,
+  resave: false
+}))
+app.use(require('flash')())
 
 app.use('/', index)
 

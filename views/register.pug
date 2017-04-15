@@ -6,15 +6,16 @@ block content
       .container
         .columns.is-vcentered
           .column.is-4.is-offset-4
+            include messages
             h1.title
               | Register an Account
             form.box(method="POST", action="/register")
               label.label Username
               p.control
-                input.input(type='text', placeholder='jsmith', name='username')
+                input.input(type='text', placeholder='jsmith', name='username', required='required')
               label.label Password
               p.control
-                input.input(type='password', placeholder='●●●●●●●', name='password')
+                input.input(type='password', name='password', required='required')
               hr
               p.control
                 button.button.is-primary(type="submit") Register

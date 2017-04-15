@@ -1,5 +1,8 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express')
+const bcrypt = require('bcryptjs')
+
+const models = require('../models')
+const router = express.Router()
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -15,7 +18,39 @@ router.get('/register', (req, res, next) => {
   res.render('register')
 })
 router.post('/register', (req, res, next) => {
-  res.send(`${req.body.username} ${req.body.password}`)
+  const username = req.body.username
+  const password = req.body.password
+  models.findUser(username)
+    .then(user => {
+      try {
+        if (user.records.length > 0) {
+          const message = `${username} is already exist.`
+          req.flash('danger', message)
+          res.render('register')
+        } else {
+          models.createUser(username, password)
+            .then(result => {
+              const message = 'User created!'
+              req.flash('info', message)
+              res.redirect('/')
+            })
+            .catch(() => {
+              const message = 'Username already exist. Please do login instead.'
+              req.flash('danger', message)
+              res.render('register')
+            })
+        }
+      } catch (err) {
+        const message = `Ooops, something happen! ${err}`
+        req.flash('danger', message)
+        res.render('register')
+      }
+    })
+    .catch(err => {
+      const message = `Ooops, something happen! ${err}`
+      req.flash('danger', message)
+      res.redirect('/register')
+    })
 })
 
 router.get('/login', (req, res, next) => {
