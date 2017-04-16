@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const pug = require('pug')
 const neo4j = require('neo4j-driver').v1
-const session = require('express-session')
+const session = require('cookie-session')
 
 const index = require('./routes/index')
 const models = require('./models')
@@ -24,10 +24,16 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+
+const secret = 'neo4'
 app.use(session({
-  secret: 'rizafahmi',
-  saveUninitialized: false,
-  resave: false
+  secret: secret,
+  saveUninitialized: true,
+  resave: false,
+  cookie: {
+    secureProxy: true,
+    httpOnly: true
+  }
 }))
 app.use(require('flash')())
 app.use((req, res, next) => {
