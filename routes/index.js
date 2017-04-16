@@ -77,4 +77,22 @@ router.post('/login', (req, res, next) => {
     })
 })
 
+router.post('/add_log', (req, res, next) => {
+  if (req.session.username) {
+    models.addLog(req.body.log, req.session.username)
+      .then(result => {
+        console.log(result)
+        req.flash('info', 'Successfully log.')
+        res.redirect('/')
+      })
+      .catch(err => {
+        req.flash('danger', `Something wrong: ${err}`)
+        res.redirect('/')
+      })
+  } else {
+    req.flash('info', 'You need to logged in to post a log.')
+    res.redirect('/')
+  }
+})
+
 module.exports = router

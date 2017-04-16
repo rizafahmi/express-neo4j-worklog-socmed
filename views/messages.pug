@@ -1,6 +1,7 @@
 while message = flash.shift()
-  .card.is-fullwidth(style='margin-bottom: 20px')
+  .card.is-fullwidth
     article.message(class='is-' + message.type)
       .message-header
         p= message.type
       .message-body= message.message
+  .spacer

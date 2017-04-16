@@ -39,8 +39,9 @@ block content
           .column.is-2
           .spacer
         .column.is-6
-          .box
-            | TODO:FORM
+          if session.username
+            .box
+              include form
           .box
             article.media
               .media-left
