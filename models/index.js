@@ -68,6 +68,12 @@ const loggingIn = async (username, password) => {
 
 const addLog = async (log, username) => {
   const id = uuid()
+
+  // Tags extractor
+  // Check for hash tag
+  // Extract it
+  // Save as tag
+
   const q = `MATCH (u:User {username: '${username}'})
         MERGE (u)-[r:PUBLISHED]->(l:Log {id: '${id}', log: '${log}', timestamp: timestamp()})`
   return await session.run(q)

@@ -1,2 +1,12 @@
 form(method='POST', action='/add_log')
-  input.input.is-medium(type='text', placeholder="What's happening...", name='log')
+  .field
+    p.control
+      input.input.is-medium(type='text', placeholder="What's happening...", name='log')
+  .spacer
+  .field
+    p.control
+      input.input.is-small(type='text', placeholder='tags, separated, by, coma', name='tags')
+  .spacer
+  .field
+    p.control
+      button.button.is-success Send
