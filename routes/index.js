@@ -13,15 +13,11 @@ router.get('/', (req, res, next) => {
   }
   models.getUserLogs(user)
     .then(result => {
-      const logs = result.records.map(log => {
-        return log._fields[0].properties
-      })
       res.render('index', {
         title: 'DevLog',
-        user: user,
-        logs: logs
+        user,
+        logs: result.records
       })
-
     })
     .catch(err => console.error(err))
 })

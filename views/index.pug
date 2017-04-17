@@ -55,7 +55,10 @@ block content
                         small @johnsmith
                         small(style='float:right;') 31m
                         br
-                        = log.log
+                        = log._fields[1]
+                        each tag in log._fields[2]
+                          div.tag.is-primary
+                            =tag
                     nav.level
                       .level-left
                         a.level-item

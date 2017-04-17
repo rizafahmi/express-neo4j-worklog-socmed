@@ -89,18 +89,15 @@ const addLog = async (log, tags, username) => {
         })
       }
     })
-
 }
 
 const getUserLogs = async (username) => {
   const q = `
-      MATCH (user)-[:PUBLISHED]->(log)
+      MATCH (user)-[:PUBLISHED]->(log)<-[:TAGGED]-(tag)
       WHERE user.username = '${username}'
-      RETURN log
+      RETURN user.username, log.log, COLLECT(tag.name) AS tags
     `
-
   return await session.run(q)
-
 }
 
 module.exports = {
