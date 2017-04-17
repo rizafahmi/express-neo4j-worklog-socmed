@@ -66,17 +66,29 @@ const loggingIn = async (username, password) => {
     })
 }
 
-const addLog = async (log, username) => {
+const addLog = async (log, tags, username) => {
   const id = uuid()
 
-  // Tags extractor
-  // Check for hash tag
-  // Extract it
-  // Save as tag
-
-  const q = `MATCH (u:User {username: '${username}'})
+  let q = `MATCH (u:User {username: '${username}'})
         MERGE (u)-[r:PUBLISHED]->(l:Log {id: '${id}', log: '${log}', timestamp: timestamp()})`
+
   return await session.run(q)
+    .then(result => {
+      if (tags.trim().length > 0) {
+        return tags.split(',').map(tag => {
+          q = `MERGE (t:Tag {name: '${tag.trim()}'})`
+          session.run(q)
+            .then(result => {
+              const relQ = `MATCH (t:Tag {name: '${tag.trim()}'}),
+                (l:Log {id: '${id}'})
+                MERGE (t)-[r:TAGGED]->(l)`
+              console.log(relQ)
+              return session.run(relQ)
+            })
+            .catch(err => console.error(err))
+        })
+      }
+    })
 }
 
 module.exports = {

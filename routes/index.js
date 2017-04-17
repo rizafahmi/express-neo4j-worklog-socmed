@@ -79,9 +79,8 @@ router.post('/login', (req, res, next) => {
 
 router.post('/add_log', (req, res, next) => {
   if (req.session.username) {
-    models.addLog(req.body.log, req.session.username)
+    models.addLog(req.body.log, req.body.tags, req.session.username)
       .then(result => {
-        console.log(result)
         req.flash('info', 'Successfully log.')
         res.redirect('/')
       })
