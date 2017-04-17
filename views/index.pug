@@ -42,27 +42,24 @@ block content
           if session.username
             .box
               include form
-          .box
-            article.media
-              .media-left
-                figure.image.is-64x64
-                  img(src='http://placehold.it/128x128', alt='Image')
-              .media-content
-                .content
-                  p
-                    strong John Smith
-                    small @johnsmith
-                    small(style='float:right;') 31m
-                    br
-                    |                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
-                nav.level
-                  .level-left
-                    a.level-item
-                      span.icon.is-medium(data-icon='ei-undo')
-                    a.level-item
-                      span.icon.is-medium(data-icon='ei-retweet')
-                    a.level-item
-                      span.icon.is-medium(data-icon='ei-heart')
+          each log, index in logs
+              .box
+                article.media
+                  .media-left
+                    figure.image.is-64x64
+                      img(src='http://placehold.it/128x128', alt='Image')
+                  .media-content
+                    .content
+                      p
+                        strong John Smith
+                        small @johnsmith
+                        small(style='float:right;') 31m
+                        br
+                        = log.log
+                    nav.level
+                      .level-left
+                        a.level-item
+                          span.icon.is-medium(data-icon='ei-heart')
         .column.is-3
           .box
             p

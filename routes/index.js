@@ -6,12 +6,24 @@ const router = express.Router()
 /* GET home page. */
 router.get('/', (req, res, next) => {
   let user
-  if (req.session) {
-    user = req.session.user
+  if (res.locals.session) {
+    user = res.locals.session.username
   } else {
     user = ''
   }
-  res.render('index', { title: 'DevLog', user: user })
+  models.getUserLogs(user)
+    .then(result => {
+      const logs = result.records.map(log => {
+        return log._fields[0].properties
+      })
+      res.render('index', {
+        title: 'DevLog',
+        user: user,
+        logs: logs
+      })
+
+    })
+    .catch(err => console.error(err))
 })
 router.get('/register', (req, res, next) => {
   res.render('register')
