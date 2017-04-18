@@ -34,24 +34,19 @@ block content
         .column.is-4
           .box
             p
-              span.title.is-5 Who to follow
-              |  · 
-              a(href='#') Refresh
-              |  · 
-              a(href='#') View All
+              span.title.is-5 Similar users
             hr
-            .columns
-              .column.is-3.is-marginless
-                .image
-                  img(src='https://placehold.it/200x200')
-              .column.is-9
-                p
-                  a(href='#')
-                    strong John Smith
-                    |                   &commat;jsmith
-                  a(href='#')
-                    i(data-icon='ei-close-o', data-size='s')
-                a.button.is-primary.is-small
-                  span
-                    | + Follow
+            each user in similar
+              .columns
+                .column.is-3.is-marginless
+                  .image
+                    img(src='https://placehold.it/200x200')
+                .column.is-9
+                  p
+                    a(href='#')
+                      strong= user._fields[0] + ' '
+                    | also logs about tags 
+                    each tag in user._fields[1]
+                      div.tag.is-primary.is-small
+                        = ' ' + tag + ' '
 

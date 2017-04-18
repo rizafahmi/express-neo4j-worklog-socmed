@@ -13,11 +13,16 @@ router.get('/', (req, res, next) => {
   }
   models.getLogs(user)
     .then(result => {
-      res.render('index', {
-        title: 'DevLog',
-        user,
-        logs: result.records
-      })
+      models.similarUser(user)
+        .then(similarResult => {
+          res.render('index', {
+            title: 'DevLog',
+            user,
+            logs: result.records,
+            similar: similarResult.records
+          })
+        })
+        .catch(error => console.error(error))
     })
     .catch(err => console.error(err))
 })
