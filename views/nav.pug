@@ -11,7 +11,7 @@ nav.nav.has-shadow
     .nav-right.nav-menu
       span.nav-item
         if session.username
-          a.button.is-danger.is-outlined
+          a.button.is-danger.is-outlined(href='/logout')
             | Logout
         else
           a.button(href="/register")

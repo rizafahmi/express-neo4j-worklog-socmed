@@ -117,4 +117,10 @@ router.get('/like/:log_id', (req, res) => {
   }
 })
 
+router.get('/logout', (req, res) => {
+  res.locals.session.username = ''
+  req.flash('info', 'You\'re logged out!')
+  res.redirect('/')
+})
+
 module.exports = router
