@@ -82,7 +82,6 @@ const addLog = async (log, tags, username) => {
               const relQ = `MATCH (t:Tag {name: '${tag.trim()}'}),
                 (l:Log {id: '${id}'})
                 MERGE (t)-[r:TAGGED]->(l)`
-              console.log(relQ)
               return session.run(relQ)
             })
             .catch(err => console.error(err))
@@ -95,9 +94,25 @@ const getUserLogs = async (username) => {
   const q = `
       MATCH (user)-[:PUBLISHED]->(log)<-[:TAGGED]-(tag)
       WHERE user.username = '${username}'
-      RETURN user.username, log.log, COLLECT(tag.name) AS tags
+      RETURN user.username, log.log, COLLECT(tag.name) AS tags, log.id
     `
   return await session.run(q)
+}
+
+const getLogs = async () => {
+  const q = `
+      MATCH (user)-[:PUBLISHED]->(log)<-[:TAGGED]-(tag)
+      RETURN user.username, log.log, COLLECT(tag.name) AS tags, log.id
+    `
+  return await session.run(q)
+}
+
+const likedLog = async (username, logId) => {
+  const relQ = `MATCH (u:User {username: '${username}'}),
+                (l:Log {id: '${logId}'})
+                MERGE (u)-[r:LIKED]->(l)`
+  console.log(relQ)
+  return await session.run(relQ)
 }
 
 module.exports = {
@@ -105,5 +120,7 @@ module.exports = {
   createUser,
   loggingIn,
   addLog,
-  getUserLogs
+  getUserLogs,
+  likedLog,
+  getLogs
 }

@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
   } else {
     user = ''
   }
-  models.getUserLogs(user)
+  models.getLogs(user)
     .then(result => {
       res.render('index', {
         title: 'DevLog',
@@ -99,6 +99,21 @@ router.post('/add_log', (req, res, next) => {
   } else {
     req.flash('info', 'You need to logged in to post a log.')
     res.redirect('/')
+  }
+})
+
+router.get('/like/:log_id', (req, res) => {
+  if (res.locals.session.username) {
+    models.likedLog(res.locals.session.username, req.params.log_id)
+    .then(result => {
+      req.flash('info', 'You liked it!')
+      console.log(req.originalUrl)
+      res.redirect('/')
+    })
+    .catch(err => console.error(err))
+  } else {
+    req.flash('danger', 'You have to login first.')
+    res.redirect('/login')
   }
 })
 
