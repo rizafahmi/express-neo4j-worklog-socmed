@@ -123,4 +123,20 @@ router.get('/logout', (req, res) => {
   res.redirect('/')
 })
 
+router.get('/profile/:username', (req, res) => {
+  if (res.locals.session.username) {
+    models.getUserRecentLogs(res.locals.session.username)
+      .then(result => {
+        console.log(result)
+        res.render('profile', {
+          logs: result.records
+        })
+      })
+      .catch(err => console.error(err))
+  } else {
+    req.flash('danger', 'You need to login to access profile page')
+    res.redirect('/login')
+  }
+})
+
 module.exports = router

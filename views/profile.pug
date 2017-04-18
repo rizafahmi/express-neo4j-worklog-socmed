@@ -1,0 +1,41 @@
+extends layout
+
+block content
+  include nav
+  .container.profile
+    .section.profile-heading
+      .columns
+        .column.is-2
+          .image.is-128x128.avatar
+            img(src='https://placehold.it/256x256')
+        .column.is-4.name
+          p
+            span.title.is-bold John Smith
+            span.button.is-primary.is-outlined.follow Follow
+          p.tagline The users profile bio would go here, of course. It could be two lines
+        .column.is-2.followers.has-text-centered
+          p.stat-val 129k
+          p.stat-key followers
+        .column.is-2.following.has-text-centered
+          p.stat-val 2k
+          p.stat-key following
+        .column.is-2.likes.has-text-centered
+          p.stat-val 29
+          p.stat-key likes
+    .box
+      h2.title User similar to you
+      if similar
+        each user in similar
+          a(href='#') =user.similar_user
+          | also logs about tags
+      else
+        p There aren't any users who've similar to you
+    .spacer
+    .box
+      h2.title=session.username+' Recent Logs'
+      ul
+        each log in logs
+          li
+            a(href='#')=log._fields[1]
+            span=' on ' + log._fields[4]
+    .spacer

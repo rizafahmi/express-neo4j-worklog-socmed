@@ -90,11 +90,12 @@ const addLog = async (log, tags, username) => {
     })
 }
 
-const getUserLogs = async (username) => {
+const getUserRecentLogs = async (username) => {
   const q = `
       MATCH (user)-[:PUBLISHED]->(log)<-[:TAGGED]-(tag)
       WHERE user.username = '${username}'
-      RETURN user.username, log.log, COLLECT(tag.name) AS tags, log.id
+      RETURN user.username, log.log, COLLECT(tag.name) AS tags, log.id, log.timestamp
+      ORDER BY log.timestamp DESC
     `
   return await session.run(q)
 }
@@ -102,7 +103,8 @@ const getUserLogs = async (username) => {
 const getLogs = async () => {
   const q = `
       MATCH (user)-[:PUBLISHED]->(log)<-[:TAGGED]-(tag)
-      RETURN user.username, log.log, COLLECT(tag.name) AS tags, log.id
+      RETURN user.username, log.log, COLLECT(tag.name) AS tags, log.id, log.timestamp
+      ORDER BY log.timestamp DESC LIMIT 25
     `
   return await session.run(q)
 }
@@ -120,7 +122,7 @@ module.exports = {
   createUser,
   loggingIn,
   addLog,
-  getUserLogs,
+  getUserRecentLogs,
   likedLog,
   getLogs
 }

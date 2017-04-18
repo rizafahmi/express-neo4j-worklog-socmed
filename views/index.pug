@@ -7,38 +7,7 @@ block content
     .container
       include messages
       .columns
-        if session.username
-          .column.is-3
-            .card.is-fullwidth
-              header.card-header
-              .card-content
-                a.card-avatar
-                  img.card-avatar-img(src='https://pbs.twimg.com/profile_images/806748838950076416/eTlGRtGw_400x400.jpg')
-                .card-user
-                  .card-user-name
-                    a(href='#') John Smith
-                  span
-                    a(href='#')
-                      | @
-                      span= session.username
-                .card-stats
-                  ul.card-stats-list
-                    li.card-stats-item
-                      a(href='#', title='9.840 Tweet')
-                        span.card-stats-key Tweets
-                        span.card-stats-val 1
-                    li.card-stats-item
-                      a(href='#/following', title='885 Following')
-                        span.card-stats-key Following
-                        span.card-stats-val 0
-                    li.card-stats-item
-                      a(href='#')
-                        span.card-stats-key Followers
-                        span.card-stats-val 0
-        else
-          .column.is-2
-          .spacer
-        .column.is-6
+        .column.is-8
           if session.username
             .box
               include form
@@ -63,7 +32,7 @@ block content
                       .level-left
                         a.level-item(href='/like/'+log._fields[3])
                           span.icon.is-medium(data-icon='ei-heart')
-        .column.is-3
+        .column.is-4
           .box
             p
               span.title.is-5 Who to follow

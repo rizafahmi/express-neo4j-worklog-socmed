@@ -1,7 +1,7 @@
 nav.nav.has-shadow
   .container
     .nav-center
-      a.nav-item(href='#')
+      a.nav-item(href='/')
         span(data-icon='ei-pencil', data-size='m')
         h1.title.is-primary(style='color: #1fc8db') DevLog
     span.nav-toggle
@@ -11,6 +11,10 @@ nav.nav.has-shadow
     .nav-right.nav-menu
       span.nav-item
         if session.username
+          a.button.is-outlined(href='/profile/'+session.username, data-balloon='Click here to see your profile', data-balloon-pos='down')
+            | Welcome back, 
+            span= session.username
+
           a.button.is-danger.is-outlined(href='/logout')
             | Logout
         else
@@ -18,3 +22,4 @@ nav.nav.has-shadow
             | Register
           a.button.is-primary.is-outlined(href="/login")
             | Login
+
