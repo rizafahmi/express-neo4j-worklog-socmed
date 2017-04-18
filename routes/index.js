@@ -127,10 +127,15 @@ router.get('/profile/:username', (req, res) => {
   if (res.locals.session.username) {
     models.getUserRecentLogs(res.locals.session.username)
       .then(result => {
-        console.log(result)
-        res.render('profile', {
-          logs: result.records
-        })
+        models.similarUser(res.locals.session.username)
+          .then(similarResult => {
+            console.log(similarResult)
+            res.render('profile', {
+              logs: result.records,
+              similar: similarResult.records
+            })
+          })
+          .catch(err => console.error(err))
       })
       .catch(err => console.error(err))
   } else {

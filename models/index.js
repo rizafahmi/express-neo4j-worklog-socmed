@@ -16,9 +16,9 @@ session.run('CREATE CONSTRAINT ON (n:User) ASSERT n.username IS UNIQUE')
   .catch(error => {
     console.log(error)
   })
-session.run('CREATE CONSTRAINT ON (n:Post) ASSERT n.id IS UNIQUE')
+session.run('CREATE CONSTRAINT ON (n:Log) ASSERT n.id IS UNIQUE')
   .then((result) => {
-    console.log('Constraint for Post created.')
+    console.log('Constraint for Log created.')
     session.close()
   })
   .catch(error => {
@@ -117,6 +117,16 @@ const likedLog = async (username, logId) => {
   return await session.run(relQ)
 }
 
+const similarUser = async (username, n = 5) => {
+  const q = `MATCH (user1:User)-[:PUBLISHED]->(:Log)<-[:TAGGED]-(tag:Tag),
+    (user2:User)-[:PUBLISHED]->(:Log)<-[:TAGGED]-(tag)
+    WHERE user1.username = '${username}' AND user1 <> user2
+    WITH user2, COLLECT(DISTINCT tag.name) AS tags, COUNT(DISTINCT tag.name) AS tag_count
+    ORDER BY tag_count DESC LIMIT ${n}
+    RETURN user2.username AS similar_user, tags`
+  return await session.run(q)
+}
+
 module.exports = {
   findUser,
   createUser,
@@ -124,5 +134,6 @@ module.exports = {
   addLog,
   getUserRecentLogs,
   likedLog,
-  getLogs
+  getLogs,
+  similarUser
 }

@@ -25,9 +25,14 @@ block content
     .box
       h2.title User similar to you
       if similar
-        each user in similar
-          a(href='#') =user.similar_user
-          | also logs about tags
+        ul
+          each user in similar
+            li
+              a(href='#')= user._fields[0] + ' '
+              | also logs about tags 
+              each tag in user._fields[1]
+                div.tag.is-primary.is-small
+                  = ' ' + tag + ' '
       else
         p There aren't any users who've similar to you
     .spacer
